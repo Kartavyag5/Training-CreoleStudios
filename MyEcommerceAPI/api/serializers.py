@@ -37,21 +37,27 @@ class loginSerializer(serializers.ModelSerializer):
         fields = ('username','password')
 
 
+class categorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ('id','title')
+
 class ProductSerializer(serializers.ModelSerializer):
-    #category_id  = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(),source='category.id')
+    category_name = categorySerializer(read_only = True)
+    
     class Meta:
         model = Product
         fields = (
             'id',
             'product_tag',
             'name',
-            'category',
             'price',
             'stock',
             'imageUrl',
             'status',
             'created_at',
             'updated_at',
+            'category_name',
         )
 
 
@@ -65,7 +71,7 @@ class CategoryProductSerializer(serializers.ModelSerializer):
             #'product_tag',
             'name',
             #'category_id',
-            #'price',
+            'price',
             #'stock',
             #'imageUrl',
             #'status',
@@ -73,9 +79,7 @@ class CategoryProductSerializer(serializers.ModelSerializer):
             #'updated_at',
         )
         
-    # def create(self, validated_data):
-    #     subject = Product.objects.create(category=validated_data['category']['id'], product_name = validated_data['product_name'])
-    #     return subject
+   
 
 class CategorySerializer(serializers.ModelSerializer):
     products = CategoryProductSerializer(many=True, read_only=True)
@@ -85,6 +89,8 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'title',
+            'created_at',
+            'updated_at',
             'products',
         )
 

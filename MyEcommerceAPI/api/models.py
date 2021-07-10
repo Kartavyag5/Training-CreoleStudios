@@ -16,6 +16,9 @@ User = get_user_model()
 
 class Category(models.Model):
     title = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
 
     class Meta:
         verbose_name_plural = 'Categories'
@@ -173,24 +176,6 @@ class Order(models.Model):
     def __str__(self):
         return f"{str(self.cart)[0:9]}  {str(self.cart)[9:28]}"
 
-    def check_done(self):
-        billing_profile = self.billing_profile
-        total = self.total
-        cart = self.cart
-        active = self.active
-        if active and total > 0 and cart and billing_profile:
-            return True
-        return False
-
-    def mark_paid(self):
-        if self.check_done():
-            self.cart.used = True
-            self.cart.save()
-            self.status = 'paid'
-            self.save()
-            return True
-        return False
-
     @property
     def cart_total(self):
         return self.cart.total
@@ -204,10 +189,4 @@ class Order(models.Model):
         grand_total = float(self.cart_total) + float(self.tax_total) + float(self.shipping_total)
         return grand_total
 
-# def pre_save_create_order_id(sender, instance, *args, **kwargs):
-#     if not instance.order_id:
-#         instance.order_id = unique_product_id_generator(instance)
-
-
-# pre_save.connect(pre_save_create_order_id, sender=Order)
 

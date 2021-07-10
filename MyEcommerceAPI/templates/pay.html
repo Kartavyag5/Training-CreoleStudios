@@ -15,6 +15,7 @@
     <p>shipping_total: {{ shipping_total }}</p>
     <p>tax_total: {{ tax_total }}</p>
     <p>grand_total: {{ grand_total }}</p>
+    <p>status: {{ status }}</p>
     <p>Created at: {{ created_at }}</p>
     <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -23,7 +24,7 @@ var options = {
     "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
     "amount": "{{amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
     "currency": "INR",
-    "name": "acne corp",
+    "name": "EcommerceAPI",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
     "order_id": "{{order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1

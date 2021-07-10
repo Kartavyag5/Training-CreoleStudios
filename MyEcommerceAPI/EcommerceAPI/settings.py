@@ -71,8 +71,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
 "http://www.website.com",
 "https://localhost:8000",
-"http://localhost:4200",
-"https://web.postman.co",
+
 ]
 
 CORS_ALLOW_METHODS = [
@@ -170,47 +169,12 @@ CURRENCY = {
 }
 
 
+RAZORPAY_KEY_ID = 'rzp_test_9aE0EbFpatxAXB'
+RAZORPAY_KEY_SECRET = '6a3m3UtFivonacoDQlMZKFrx'
 
-# This will Help django To Log To Console
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
-                       'pathname=%(pathname)s lineno=%(lineno)s ' +
-                       'funcname=%(funcName)s %(message)s'),
-            'datefmt': '%Y-%m-%d %H:%M:%S'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        }
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        }
-    },
-    'loggers': {
-        'testlogger': {
-            'handlers': ['console'],
-            'level': 'INFO',
-        }
-    }
-}
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
 
 # CORS Settings
 CORS_ORIGIN_ALLOW_ALL = True
 
-STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY','pk_test_51J8L2bSBLK7PNVunSdZFJTjl7DQPUrW8XyStQrK7XAOGGqfEuuOwOnAZfyBRIsbrvG6rHBbvhSSHaEKPwWxU4CXE00skSI9DCu')
-
-RAZORPAY_KEY_ID = 'rzp_test_9aE0EbFpatxAXB'
-RAZORPAY_KEY_SECRET = '6a3m3UtFivonacoDQlMZKFrx'

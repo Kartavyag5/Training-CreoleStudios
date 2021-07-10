@@ -71,11 +71,11 @@ class ListCategory(ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     filter_backends = [SearchFilter,OrderingFilter]
-    search_fields = ['^title']
+    search_fields = ['^title','id']
     ordering_fields = ['title']
 
 class DetailCategory(RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAdminUser,)
+    permission_classes = (IsAdminUserOrReadOnly,)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     
@@ -85,7 +85,7 @@ class ListProduct(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter,OrderingFilter]
-    search_fields = '__all__'
+    search_fields = ['id','^product_tag','^name']
     ordering_fields = '__all__'
 
 class DetailProduct(RetrieveUpdateDestroyAPIView):
@@ -93,19 +93,18 @@ class DetailProduct(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter,OrderingFilter]
-    search_fields = '__all__'
-    ordering_fields = '__all__'
+    
 
 
 #-------------------new Cart section------------------------
 
 
 class CartAPIView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwner, IsAdminUser]
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
     filter_backends = [SearchFilter,OrderingFilter]
-    search_fields = '__all__'
+    search_fields = ['id','^user']
     ordering_fields = '__all__'
 
 class CheckProductInCart(APIView):
@@ -200,6 +199,7 @@ def payment(request):
             shipping_total = item.shipping_total
             tax_total = item.tax_total
             grand_total = item.grand_total
+            status = item.status
             
             
     order_amount = int(grand_total)   # amount must be in Paisa
@@ -221,7 +221,8 @@ def payment(request):
         'shipping_total':shipping_total,
         'tax_total':tax_total,
         'grand_total':grand_total,
-        'created_at': created_at
+        'created_at': created_at,
+        'status': status,
     }
     return render(request,'pay.html',context)
 
