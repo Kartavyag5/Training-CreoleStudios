@@ -10,7 +10,6 @@ import stripe
 
 # Create your models here.
 
-stripe.api_key = settings.STRIPE_API_KEY
 User = get_user_model()
 
 

@@ -196,6 +196,7 @@ def payment(request):
 
         order = Order.objects.filter(cart = cartID)
         for item in order:
+            order_id = item.id
             shipping_total = item.shipping_total
             tax_total = item.tax_total
             grand_total = item.grand_total
@@ -208,11 +209,13 @@ def payment(request):
     payment_order = client.order.create(dict(amount=order_amount, currency=order_currency, payment_capture=1))
     payment_order_id = payment_order['id']
     Order.objects.filter(cart=cartID).update(order_payment_id=payment_order_id)
+
     if payment_order_id != None:
         Order.objects.filter(cart=cartID).update(status=STATUS_CHOICES[1])
-
-
+        
+        
     context = {
+        'order_id':order_id,
         'amount':order_amount,
         'api_key':RAZORPAY_KEY_ID,
         'payment_order_id':payment_order_id,
@@ -223,6 +226,7 @@ def payment(request):
         'grand_total':grand_total,
         'created_at': created_at,
         'status': status,
+        
     }
     return render(request,'pay.html',context)
 

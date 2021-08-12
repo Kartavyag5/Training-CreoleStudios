@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -169,9 +169,8 @@ CURRENCY = {
 }
 
 
-RAZORPAY_KEY_ID = 'rzp_test_9aE0EbFpatxAXB'
-RAZORPAY_KEY_SECRET = '6a3m3UtFivonacoDQlMZKFrx'
-
+RAZORPAY_KEY_ID = 'rzp_test_VHhqrhR9nuyDKt'
+RAZORPAY_KEY_SECRET = 'cweTg4LJGDSrTGFudoXU5c7c'
 
 DEBUG_PROPAGATE_EXCEPTIONS = True
 

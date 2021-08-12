@@ -17,6 +17,8 @@
     <p>grand_total: {{ grand_total }}</p>
     <p>status: {{ status }}</p>
     <p>Created at: {{ created_at }}</p>
+
+    <form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="pl_HTjHLzdjW5ADYS" async> </script> </form>
     
     <button id="rzp-button1">Pay</button>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -24,19 +26,19 @@
 var options = {
     "key": "{{api_key}}", // Enter the Key ID generated from the Dashboard
     "amount": "{{amount}}", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-    "order_id": "{{payment_order_id}}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "currency": "INR",
     "name": "Acme Corp",
     "description": "Test Transaction",
     "image": "https://example.com/your_logo",
+    "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
     "handler": function (response){
         alert(response.razorpay_payment_id);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature)
     },
     "prefill": {
-        "name": "Kartavya Gauswami",
-        "email": "kartavya@gmail.com",
+        "name": "Gaurav Kumar",
+        "email": "gaurav.kumar@example.com",
         "contact": "9999999999"
     },
     "notes": {
@@ -60,12 +62,4 @@ document.getElementById('rzp-button1').onclick = function(e){
     rzp1.open();
     e.preventDefault();
 }
-</script>    
-</div>
-</section>
-    
-</head>
-<body>
-    
-</body>
-</html>
+</script>
